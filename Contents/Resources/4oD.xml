@@ -8,11 +8,11 @@
 	initialState="loading"
 	version="1.0">
 
-	<crop x="0" y="0" width="0" height="360" />
+	<crop x="0" y="0" width="0" height="-37" />
 
 	<seekbar type="simple">
-		<start x="1" y="362" />
-		<end x="639" y="362" />
+		<start x="1" y="-35" />
+		<end x="-1" y="-35" />
 		<played>
 			<!-- Progress is determined by the blue pixels in the gray / dark gray that is the progressbar -->
 			<color rgb="3fc0fd" /><!-- The blue that indicates the played portion -->
