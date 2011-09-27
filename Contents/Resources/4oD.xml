@@ -8,16 +8,15 @@
 	initialState="loading"
 	version="1.0">
 
-	<crop x="0" y="1" width="0" height="-22" />
+	<crop x="0" y="0" width="0" height="-37" />
 
 	<seekbar type="simple">
-		<start x="42" y="-11" />
-		<end x="-190" y="-11" />
+		<start x="1" y="-35" />
+		<end x="-1" y="-35" />
 		<played>
-			<!-- Progress is determined by the black pixels in the black/white grid that is the progressbar -->
-			<color rgb="ff0000" /><!-- The red that the javascript changes any other colour into inside the "loading" state -->
-			<color rgb="ffffff" /><!-- Colour of the thumb and of the first colour of the vertical bar(s) that indicate ads -->
-			<color rgb="333333" /><!-- Seconds colour of the vertical bar(s) that indicate ads -->
+			<!-- Progress is determined by the blue pixels in the gray / dark gray that is the progressbar -->
+			<color rgb="3fc0fd" /><!-- The blue that indicates the played portion -->
+			<color rgb="ffffff" /><!-- Colour of the thumb. -->
 		</played>
 	</seekbar>
 
@@ -48,6 +47,8 @@
 			</condition>
 			<action>
 				<click x="9" y="-11" />
+				<!-- Dummy click to move mouse away from play button to avoid having tooltip show  --> 
+				<click x="320" y="-11" />
 				<goto state="paused" />
 			</action>
 		</event>
@@ -71,6 +72,8 @@
 			</condition>
 			<action>
 				<click x="9" y="-11" />
+				<!-- Dummy click to move mouse away from play button --> 
+				<click x="320" y="-11" />
 				<goto state="playing" />
 			</action>
 		</event>
