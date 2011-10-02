@@ -3,7 +3,7 @@
 	plugin="4odplayer.*swf"
 	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:6.0.2) Gecko/20100101 Firefox/6.0.2"
 	initialState="loading"
-	version="2.0">
+	version="3.0">
 
 	<crop x="0" y="0" width="0" height="-37" />
 
@@ -31,6 +31,25 @@
 			<action>
 				<run script="var brandWebSafeTitle=jQuery('meta[name=&quot;brandWebSafeTitle&quot;]').attr('content');if(brandWebSafeTitle!=undefined){jQuery.cookie('C4AccessControlCookie_'+brandWebSafeTitle,'{&quot;allowedToWatch&quot;:18}');}" />
 				<pause time="5000" />
+				<goto state="check-flash" />
+			</action>
+		</event>
+	</state>
+
+	<state name="check-flash">
+		<event>
+			<condition>
+				<javascript script="flash = navigator.plugins['Shockwave Flash'] ? 1 : 0" matches="0" />
+			</condition>
+			<action>
+				<goto state="end" param="This plugin requires the Flash player to be installed." />
+			</action>
+		</event>
+		<event>
+			<condition>
+				<javascript script="flash = navigator.plugins['Shockwave Flash'] ? 1 : 0" matches="1" />
+			</condition>
+			<action>
 				<goto state="playing" />
 			</action>
 		</event>
