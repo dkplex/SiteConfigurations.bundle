@@ -2,17 +2,9 @@
 <site site="http://www.colbertnation.com/full-episodes/"
 	plugin="http://media.mtvnservices.com/.*episode"
 	initialState="playing"
-	version="1.0">
-	
-	<crop x="0" y="0" width="764" height="432" />
+	version="2.0">
 
-	<seekbar type="simple">
-		<start x="56" y="442" />
-		<end   x="574" y="442" />
-		<played>
-			<color rgb="56b5d9" />
-		</played>
-	</seekbar>
+	<crop x="0" y="0" width="0" height="0" />
 
 	<!-- PLAYING -->
 	<state name="playing">
@@ -22,16 +14,14 @@
 				<command name="pause" />
 			</condition>
 			<action>
-				<click x="21" y="444" />
+				<click x="5" y="5" />
 			</action>
 		</event>
 
 		<!-- Video ends -->
 		<event>
 			<condition>
-				<and>
-					<color x="561" y="442" rgb="56b5d9" />
-				</and>
+				<url matches="mtvnimages.com" />
 			</condition>
 			<action>
 				<goto state="end" />
@@ -46,7 +36,7 @@
 				<command name="play" />
 			</condition>
 			<action>
-				<click x="21" y="445" />
+				<click x="5" y="5" />
 			</action>
 		</event>
 	</state>
