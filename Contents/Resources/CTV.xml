@@ -25,9 +25,27 @@
 			</condition>
 			<action>
 				<click x="22" y="332" />
+				<pause time="200" />
+				<click x="22" y="332" />
+				<!-- wait till bar disappears to perform another action -->
+				<pause time="1500" />
+				<!--<goto state="paused"/ >-->
 			</action>
 		</event>
-		
+			
+			<!-- Click to skip to next subvideo -->
+		<event>
+			<condition>
+				<command name="chapter+" />
+			</condition>
+			<action>
+				<click x="44" y="332" />
+				<pause time="200" />
+				<click x="44" y="332" />
+				<!-- wait till bar disappears to perform another action -->
+				<pause time="1500" />
+			</action>
+                </event>
 	</state>
 	
 	<!-- PAUSED -->
@@ -40,6 +58,10 @@
 			</condition>
 			<action>
 				<click x="22" y="332" />
+				<pause time="100" />
+				<click x="22" y="332" />
+				<pause time="1500" />
+				<!--<goto state="playing"/-->
 			</action>
 		</event>
 		
