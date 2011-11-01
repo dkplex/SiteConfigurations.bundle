@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://.*\.bbc\.co\.uk/iplayer/episode.*#Standard"
 	agent="Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.12) Gecko/20101026 Firefox/3.6.12"
-	plugin=".*player.swf.*#plexapp"
+	plugin=".*emp.swf.*#plexapp"
 	initialState="loading"
-	version="6.0">
+	version="7.0">
 
 	<setCookie domain=".bbc.co.uk" path="/" name="BBCPGstat" secure="false" value="0%3A-" />
 	<setCookie domain=".bbc.co.uk" path="/iplayer" name="BBCiPlayer" secure="false" value="empsize%3Dsmall" />
-	<setCookie domain=".bbc.co.uk" path="/" name="X-AB-iplayer-iplayer3483" secure="false" value="b" />
 
-	<crop x="0" y="0" width="0" height="-35" />
+	<crop x="0" y="0" width="0" height="0" />
 
 	<seekbar type="javascript">
 		<!-- if onPlaybackProgress has been called to set a duration and position, then use these for the current percentage complete -->
@@ -29,9 +28,16 @@
 			</condition>
 			<action>
 				<run script="var plexEMP = null; var position = 0.0; var duration = 0.0; var hasCompleted = false;" />
+				
 				<!-- customize the player settings -->
-				<run script="var el = document.getElementById('bbc_emp_embed_emp'); var flashvars = el.getAttribute('flashvars'); var src = el.getAttribute('src');" />
-				<run script="el.setAttribute('flashvars', flashvars+'&amp;config_settings_autoPlay=true&amp;guidance=passed'); el.setAttribute('src', src+'#plexapp'); el.setAttribute('wmode', 'opaque');" />
+				<run script="var el = document.getElementById('bbc_emp_embed_emp');"/>
+				<run script="var flashvars = el.querySelector('[name=flashvars]').getAttribute('value').replace(/&amp;guidance=\w*/,'');"/>
+				<run script="var src = el.getAttribute('data');" />
+				
+				<run script="el.querySelector('[name=flashvars]').setAttribute('value', flashvars+'&amp;config_settings_autoPlay=true&amp;guidance=passed');"/>
+				<run script="el.setAttribute('data', src+'#plexapp');"/>
+				<run script="el.setAttribute('wmode', 'opaque');" />
+				
 				<!-- 'hack' for webkit based browsers to redraw the player element (so it will load with our customizations) -->
 				<run script="el.style.display = 'none'; el.offsetHeight; el.style.display = 'block';" />
 				<!-- don't rush or we'll run into problems with undefined vars -->
@@ -46,6 +52,7 @@
 				<!-- to avoid these, we only accept this event as meaning "completion of the main feature" if the current duration value is more than 60 seconds -->
 				<run script="plexEMP.register('onMediaCompleted'); plexEMP.onMediaCompleted = function (p) { if (duration > 60.0) { hasCompleted = true; } };" />
 
+				<click x="1" y="1"/>
 				<goto state="playing" />
 			</action>
 		</event>

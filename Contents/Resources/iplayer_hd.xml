@@ -5,12 +5,11 @@
 	windowHeight="1200"
 	plugin=".*player.swf.*#plexapp"
 	initialState="loading"
-	version="6.0">
+	version="7.0">
 
 	<setCookie domain=".bbc.co.uk" path="/" name="BBCPGstat" secure="false" value="0%3A-" />
-	<setCookie domain=".bbc.co.uk" path="/" name="X-AB-iplayer-iplayer3483" secure="false" value="b" />
-
-	<crop x="0" y="0" width="0" height="-35" />
+	
+	<crop x="0" y="0" width="0" height="0" />
 
 	<seekbar type="javascript">
 		<!-- if onPlaybackProgress has been called to set a duration and position, then use these for the current percentage complete -->
@@ -30,9 +29,16 @@
 			</condition>
 			<action>
 				<run script="var plexEMP = null; var position = 0.0; var duration = 0.0; var hasCompleted = false;" />
+				
 				<!-- customize the player settings -->
-				<run script="var el = document.getElementById('bbc_emp_embed_emp'); var flashvars = el.getAttribute('flashvars'); var src = el.getAttribute('src');" />
-				<run script="el.setAttribute('flashvars', flashvars+'&amp;config_settings_autoPlay=true&amp;guidance=passed'); el.setAttribute('src', src+'#plexapp'); el.setAttribute('wmode', 'opaque'); el.setAttribute('width', '1280'); el.setAttribute('height', '755');" />
+				<run script="var el = document.getElementById('bbc_emp_embed_emp');"/>
+				<run script="var flashvars = el.querySelector('[name=flashvars]').getAttribute('value').replace(/&amp;guidance=\w*/,'');"/>
+				<run script="var src = el.getAttribute('data');" />
+				
+				<run script="el.querySelector('[name=flashvars]').setAttribute('value', flashvars+'&amp;config_settings_autoPlay=true&amp;guidance=passed');"/>
+				<run script="el.setAttribute('data', src+'#plexapp');"/>
+				<run script="el.setAttribute('wmode', 'opaque'); el.setAttribute('width', '1280'); el.setAttribute('height', '720');" />
+				
 				<!-- 'hack' for webkit based browsers to redraw the player element (so it will load with our customizations) -->
 				<run script="el.style.display = 'none'; el.offsetHeight; el.style.display = 'block';" />
 				<run script="emp_el = document.getElementById('emp'); emp_el.style.overflow = 'visible'; emp_el.style.position = 'absolute'; emp_el.style.zIndex = 9999;" />
