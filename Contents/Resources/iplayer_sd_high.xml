@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site site="http://.*\.bbc\.co\.uk/iplayer/episode.*#High"
+<site site="http://.*\.bbc\.co\.uk/iplayer/episode.*(#High|/)"
 	agent="Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.12) Gecko/20101026 Firefox/3.6.12"
 	plugin=".*emp.swf.*#plexapp"
 	initialState="loading"
