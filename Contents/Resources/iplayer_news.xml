@@ -26,8 +26,8 @@
 				<run script="var plexEMP = null; var position = 0.0; var duration = 0.0; var hasCompleted = false;" />
 
 				<!-- customize the player settings -->
-                <run script="var id = document.getElementsByName('CPS_ID')[0].getAttribute('content')"/>
-                <run script="if (id == undefined &amp;&amp; document.location.href.substr(-4) == '.stm') { var elems = document.location.href.split('/'); var id = elems[elems.length - 1].replace('.stm', ''); }"/>
+				<run script="var id = document.getElementsByName('CPS_ID')[0].getAttribute('content')"/>
+				<run script="if (id == undefined &amp;&amp; document.location.href.substr(-4) == '.stm') { var elems = document.location.href.split('/'); var id = elems[elems.length - 1].replace('.stm', ''); }"/>
 				<run script="var el = document.getElementById('embeddedPlayer_' + id);"/>
 				<run script="var flashvars = el.querySelector('[name=flashvars]').getAttribute('value').replace(/&amp;guidance=\w*/,'');"/>
 				<run script="var src = el.getAttribute('data');" />
