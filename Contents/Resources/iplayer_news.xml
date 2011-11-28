@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site site="http://(www.bbc.co.uk/news|news.bbc.co.uk)/.+"
+	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22"
+	plugin=".*emp.swf.*#plexapp"
+	initialState="loading"
+	version="8.0">
+
+	<crop x="0" y="0" width="0" height="0" />
+
+	<seekbar type="javascript">
+		<!-- if onPlaybackProgress has been called to set a duration and position, then use these for the current percentage complete -->
+		<percentComplete equals="duration == 0.0 ? 0.0 : (position / duration) * 100.0" />
+		<!-- in order to accurately track the position when the player is paused, we have to update the position variable ourselves, as onPlaybackProgress is not fired following seekTo when the player is paused -->
+		<bigStep minus="if (plexEMP) { var newPos = position - Math.max((duration / 10.0), 60.0); position = newPos; plexEMP.call('seekTo', [newPos]) }" plus="if (plexEMP) { var newPos = position + Math.max((duration / 10.0), 60.0); position = newPos; plexEMP.call('seekTo', [newPos]) }" />
+		<smallStep minus="if (plexEMP) { var newPos = position - 30.0; position = newPos; plexEMP.call('seekTo', [newPos]); }" plus="if (plexEMP) { var newPos = position + 30.0; position = newPos; plexEMP.call('seekTo', [newPos]); }" />
+		<!-- check for main feature completion using the hasCompleted variable, which is set in the onMediaCompleted event below when the current duration is longer than 60 seconds -->
+		<end condition="hasCompleted == true" />
+	</seekbar>
+
+	<state name="loading">
+		<event>
+			<condition>
+				<frameLoaded />
+			</condition>
+			<action>
+				<run script="var plexEMP = null; var position = 0.0; var duration = 0.0; var hasCompleted = false;" />
+
+				<!-- customize the player settings -->
+				<run script="var id = document.getElementsByName('CPS_ID')[0].getAttribute('content')"/>
+				<run script="if (id == undefined &amp;&amp; document.location.href.substr(-4) == '.stm') { var elems = document.location.href.split('/'); var id = elems[elems.length - 1].replace('.stm', ''); }"/>
+				<run script="var el = document.getElementById('embeddedPlayer_' + id);"/>
+				<run script="var flashvars = el.querySelector('[name=flashvars]').getAttribute('value').replace(/&amp;guidance=\w*/,'');"/>
+				<run script="var src = el.getAttribute('data');" />
+
+				<run script="el.querySelector('[name=flashvars]').setAttribute('value', flashvars+'&amp;config_settings_autoPlay=true&amp;guidance=passed');"/>
+				<run script="el.setAttribute('wmode', 'opaque');" />
+				<run script="el.setAttribute('data', src+'#plexapp');"/>
+
+				<!-- 'hack' for webkit based browsers to redraw the player element (so it will load with our customizations) -->
+				<run script="el.style.display = 'none'; el.offsetHeight; el.style.display = 'block';" />
+				<!-- don't rush or we'll run into problems with undefined vars -->
+				<pause time="3000" />
+
+				<!-- find the embedded media player instance, and store it in a handy reference variable -->
+				<!-- for on-demand video and radio. -->
+				<run script="for (prop in embeddedMedia.playerInstances) { if(prop.indexOf('emp') != -1) { plexEMP = embeddedMedia.playerInstances[prop]; break; } }" />
+				<!-- register a callback event for when playback progress changes, which will update the global position and duration variables, as used by the seekbar -->
+				<run script="plexEMP.register('onPlaybackProgress'); plexEMP.onPlaybackProgress = function (p) { position = p.progress; duration = p.duration; };" />
+				<!-- register a callback event for playback completion, but watch out for the completion of short idents at the start of programs -->
+				<!-- to avoid these, we only accept this event as meaning "completion of the main feature" if the current duration value is more than 60 seconds -->
+				<run script="plexEMP.register('onMediaCompleted'); plexEMP.onMediaCompleted = function (p) { if (duration > 60.0) { hasCompleted = true; } };" />
+
+				<click x="1" y="1"/>
+				<goto state="playing" />
+			</action>
+		</event>
+	</state>
+
+	<state name="playing">
+		<event>
+			<condition>
+				<command name="pause" />
+			</condition>
+			<action>
+				<!-- pause the media player -->
+				<run script="plexEMP.call('pause');" />
+				<goto state="paused" />
+			</action>
+		</event>
+	</state>
+
+	<state name="paused">
+		<event>
+			<condition>
+				<command name="play" />
+			</condition>
+			<action>
+				<!-- start the media player -->
+				<run script="plexEMP.call('play');" />
+				<goto state="playing" />
+			</action>
+		</event>
+	</state>
+
+</site>
