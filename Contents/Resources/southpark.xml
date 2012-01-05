@@ -8,14 +8,17 @@
 
 	<!-- PLAYING -->
 	<state name="playing">
+
+		<!-- Click to pause -->
 		<event>
 			<condition>
 				<command name="pause" />
 			</condition>
 			<action>
-				<!-- Nothing to do -->
+				<click x="5" y="5" />
 			</action>
 		</event>
+
 	</state>
 
 	<!-- PAUSED -->
@@ -25,8 +28,9 @@
 				<command name="play" />
 			</condition>
 			<action>
-				<!-- Nothing to do -->
+				<click x="5" y="5" />
 			</action>
 		</event>
 	</state>
+
 </site>
