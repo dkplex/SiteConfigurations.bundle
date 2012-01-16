@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site site="http://www.justin.tv/.*" plugin="http://www-cdn.*.*/widgets/live_site_player.*.swf" initialState="loading" version="1.0">
-	<setCookie domain=".justin.tv" path="/" name="mature_allowed" secure="false" value="true"/>
+<site	site="http://www.justin.tv/.*"
+		plugin="http://www-cdn.+?/widgets/live_(site|frontpage)_player.+?\.swf"
+		initialState="loading"
+		version="2.0">
+
+	<setCookie domain=".justin.tv" path="/" name="mature_allowed" secure="false" value="true" />
+
 	<crop x="0" y="0" width="0" height="-30" />
+
 	<!-- PLAYING -->
 	<state name="loading">
 		<event>
@@ -15,6 +21,7 @@
 			</action>
 		</event>
 	</state>
+
 	<state name="playing">
 		<event> 
 			<condition>
@@ -27,6 +34,7 @@
 			</action>  
 		</event>
 	</state>
+
 	<state name="paused">
 		<event>
 			<condition>
@@ -39,4 +47,5 @@
 			</action>
 		</event>
 	</state>
+
 </site>
