@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://(.+\.)?(nbc|latenightwithjimmyfallon|jaylenosgarage)\.com"
 	plugin="http://www\.nbc\.com/.*DirectWidget\.swf"
-	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:8.0.1) Gecko/20100101 Firefox/8.0.1"
+	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:9.0.1) Gecko/20100101 Firefox/9.0.1"
 	initialState="loading"
-	version="5.0">
+	version="6.0">
 
-	<crop x="0" y="28" width="854" height="480" />
+	<crop x="0" y="35" width="854" height="480" />
 
 <!-- New player, new seekbar that doesn't work, argh
 	<seekbar type="simple">
