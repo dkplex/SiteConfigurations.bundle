@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://(.+\.)?channel4.com/.+"
 	plugin="4odplayer.+swf"
-	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:6.0.2) Gecko/20100101 Firefox/6.0.2"
+	identifier="com.plexapp.plugins.4oD"
+	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:9.0.1) Gecko/20100101 Firefox/9.0.1"
 	manualLock="true"
 	initialState="loading"
-	version="4.0">
+	version="5.0">
 
 	<crop x="0" y="0" width="0" height="-37" />
 
@@ -28,6 +29,19 @@
 			</condition>
 			<action>
 				<run script="var brandWebSafeTitle=jQuery('meta[name=&quot;brandWebSafeTitle&quot;]').attr('content');if(brandWebSafeTitle!=undefined){jQuery.cookie('C4AccessControlCookie_'+brandWebSafeTitle,'{&quot;allowedToWatch&quot;:18}');}" />
+				<goto state="login" />
+			</action>
+		</event>
+	</state>
+
+	<!-- Login if we have a username and password -->
+	<state name="login">
+		<event>
+			<condition>
+				<javascript script="true ? 1 : 0" matches="1" />
+			</condition>
+			<action>
+				<run script="var result=document.cookie.match(/C4_Identity=/); var u='${email}'; var p='${password}'; if(result==undefined &amp;&amp; u &amp;&amp; p){var url='http://www.channel4.com/4me/login?formview=modal&amp;redirectUrl=http://www.channel4.com/static/global/html/accesscontrol/login/loginSuccess.htm';var data={name:u,password:p};jQuery.post(url,data,function(data){ });}" />
 				<goto state="check-flash" />
 			</action>
 		</event>
