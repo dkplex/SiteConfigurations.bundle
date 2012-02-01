@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site site="http://(.+\.)?bbc\.co\.uk/iplayer/episode/[^/]*/hd(/[^/]*/)?"
+<site site="http://(.+\.)?bbc\.co\.uk/iplayer/episode/[^/]*/hd"
 	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22"
 	windowWidth="1600"
 	windowHeight="1200"
