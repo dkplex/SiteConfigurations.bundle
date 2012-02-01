@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site site="http://(.+\.)?bbc\.co\.uk/iplayer/episode/[^/]*/hd"
+<site site="http://(.+\.)?bbc\.co\.uk/iplayer/episode/[^/]*/hd(/[^/]*/)?"
 	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22"
 	windowWidth="1600"
 	windowHeight="1200"
-	plugin=".*player.swf.*#plexapp"
+	plugin=".*emp.swf.*#plexapp"
 	initialState="loading"
 	version="8.0">
 
@@ -36,8 +36,8 @@
 				<run script="var src = el.getAttribute('data');" />
 
 				<run script="el.querySelector('[name=flashvars]').setAttribute('value', flashvars+'&amp;config_settings_autoPlay=true&amp;guidance=passed');"/>
+				<run script="el.setAttribute('wmode', 'opaque');el.setAttribute('width', '1280'); el.setAttribute('height', '720');" />
 				<run script="el.setAttribute('data', src+'#plexapp');"/>
-				<run script="el.setAttribute('wmode', 'opaque'); el.setAttribute('width', '1280'); el.setAttribute('height', '720');" />
 
 				<!-- 'hack' for webkit based browsers to redraw the player element (so it will load with our customizations) -->
 				<run script="el.style.display = 'none'; el.offsetHeight; el.style.display = 'block';" />
@@ -54,6 +54,7 @@
 				<!-- to avoid these, we only accept this event as meaning "completion of the main feature" if the current duration value is more than 60 seconds -->
 				<run script="plexEMP.register('onMediaCompleted'); plexEMP.onMediaCompleted = function (p) { if (duration > 60.0) { hasCompleted = true; } };" />
 
+				<click x="1" y="1"/>
 				<goto state="playing" />
 			</action>
 		</event>
