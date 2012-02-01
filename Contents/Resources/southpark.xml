@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site site="http://www\.southpark(studios)?\.(com|de|dk|fi|nl|no|se)"
+	plugin="http://media\.mtvnservices\.com.*southpark"
+	initialState="playing"
+	version="3.0">
+
+	<crop x="0" y="0" width="0" height="0" />
+
+	<!-- PLAYING -->
+	<state name="playing">
+
+		<!-- Click to pause -->
+		<event>
+			<condition>
+				<command name="pause" />
+			</condition>
+			<action>
+				<click x="5" y="5" />
+			</action>
+		</event>
+
+	</state>
+
+	<!-- PAUSED -->
+	<state name="paused">
+		<event>
+			<condition>
+				<command name="play" />
+			</condition>
+			<action>
+				<click x="5" y="5" />
+			</action>
+		</event>
+	</state>
+
+</site>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://www.history.com"
-	plugin="http://www.history.com/flash/VideoPlayer.swf"
+	plugin="http://www.history.com/flash/AETNVideoPlayer.swf"
 	initialState="playing"
 	version="1.0">
 
@@ -43,4 +43,5 @@
 			</action>
 		</event>
 	</state>
+
 </site>
