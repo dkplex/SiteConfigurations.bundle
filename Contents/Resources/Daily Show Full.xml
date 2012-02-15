@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://www.thedailyshow.com/full-episodes/"
 	plugin="http://media.mtvnservices.com/.*episode"
+	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/534.53.11 (KHTML, like Gecko) Version/5.1.3 Safari/534.53.10"
 	initialState="playing"
-	version="2.0">
+	version="3.0">
 
 	<crop x="0" y="0" width="0" height="0" />
 
