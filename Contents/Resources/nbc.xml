@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://(.+\.)?(nbc|latenightwithjimmyfallon|jaylenosgarage)\.com"
-	plugin="http://www\.nbc\.com/.*DirectWidget\.swf"
-	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:9.0.1) Gecko/20100101 Firefox/9.0.1"
+	plugin="http://video\.nbcuni\.com/.+/player_nbc\.swf"
+	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:12.0) Gecko/20100101 Firefox/12.0"
 	initialState="loading"
-	version="6.0">
+	version="7.0">
 
-	<crop x="0" y="35" width="854" height="480" />
+	<crop x="0" y="0" width="0" height="-26" />
 
 <!-- New player, new seekbar that doesn't work, argh
 	<seekbar type="simple">
@@ -45,36 +45,6 @@
 				<javascript script="flash = navigator.plugins['Shockwave Flash'] ? 1 : 0" matches="1" />
 			</condition>
 			<action>
-				<goto state="prepare" />
-			</action>
-		</event>
-	</state>
-
-	<!-- PREPARE -->
-	<state name="prepare">
-		<event>
-			<condition>
-				<javascript script="true ? 1 : 0" matches="1" />
-			</condition>
-			<action>
-				<run script="generateCodeForm();" />
-				<pause time="2000" />
-				<run script="x=document.getElementById('embedCodeField').value;x=x.replace(/width=&quot;[0-9]{3,}&quot;/,'width=&quot;854&quot;');x=x.replace(/height=&quot;[0-9]{3,}&quot;/,'height=&quot;539&quot;');document.getElementsByTagName('html')[0].innerHTML=x;" />
-				<goto state="click-to-play" />
-			</action>
-		</event>
-	</state>
-
-	<!-- CLICK-TO-PLAY -->
-	<state name="click-to-play">
-		<event>
-			<condition>
-				<url matches="mezzanine.*\.jpg" />
-			</condition>
-			<action>
-				<pause time="5000" />
-				<click x="-8" y="-56" />
-				<click x="427" y="270" />
 				<goto state="playing" />
 			</action>
 		</event>
@@ -87,7 +57,7 @@
 				<command name="pause" />
 			</condition>
 			<action>
-				<click x="18" y="524" />
+				<click x="18" y="-12" />
 				<goto state="paused" />
 			</action>
 		</event>
@@ -110,7 +80,7 @@
 				<command name="play" />
 			</condition>
 			<action>
-                <click x="18" y="524" />
+                <click x="18" y="-12" />
 				<goto state="playing" />
 			</action>
 		</event>
