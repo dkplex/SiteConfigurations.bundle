@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site site="http://www.fox.com/.*"
+	plugin="http://www.fox.com/_ui/fox_player/swf/flvPlayer\.swf"
+	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1"
+	initialState="playing"
+	version="4.0">
+
+	<crop x="0" y="0" width="0" height="0"/>
+
+	<!-- PLAYING -->
+	<state name="playing">
+		<event>
+			<condition>
+				<command name="pause" />
+			</condition>
+			<action>
+				<type key="32" />
+				<goto state="paused" />
+			</action>
+		</event>
+	</state>
+
+	<!-- PAUSED -->
+	<state name="paused">
+		<event>
+			<condition>
+				<command name="play" />
+			</condition>
+			<action>
+				<type key="32" />
+				<goto state="playing" />
+			</action>
+		</event>
+	</state>
+</site>
