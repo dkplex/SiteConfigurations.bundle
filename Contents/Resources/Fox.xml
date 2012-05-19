@@ -5,7 +5,7 @@
 	initialState="playing"
 	version="4.0">
 
-	<crop x="0" y="0" width="0" height="0"/>
+	<crop x="0" y="-4" width="0" height="0"/>
 
 	<!-- PLAYING -->
 	<state name="playing">
