@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://www.mtv.com"
-	    plugin="http://media.mtvnservices.com/mgid:uma:video:mtv.com"
-			initialState="playing"
-			version="1.0">
+	plugin="http://media.mtvnservices.com/mgid:uma:video:mtv.com"
+	initialState="playing"
+	version="2.0">
 			
-	<crop x="0" y="0" width="512" height="286" />
-	
+	<crop x="0" y="0" width="0" height="0" />
+
 	<seekbar type="simple">
 		<start x="62" y="290" />
 		<end   x="387" y="290" />
 		<played>
-				<color rgb="4f4f4f" />
-				<color rgb="616161" />
+			<color rgb="4f4f4f" />
+			<color rgb="616161" />
 		</played>
 	</seekbar>
-	
+
 	<!-- PLAYING -->
 	<state name="playing">
 		<event>
@@ -26,7 +26,7 @@
 				<goto state="paused" />
 			</action>
 		</event>
-		
+
 		<!-- Video ends -->
 		<event>
 			<condition>
@@ -37,7 +37,7 @@
 			</action>
 		</event>
 	</state>
-	
+
 	<!-- PAUSED -->
 	<state name="paused">
 		<event>
