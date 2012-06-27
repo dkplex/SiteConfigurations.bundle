@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site site="http://(.+\.)?(nbc|latenightwithjimmyfallon|jaylenosgarage)\.com"
-	plugin="http://video\.nbcuni\.com/.+/player_nbc\.swf"
-	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:12.0) Gecko/20100101 Firefox/12.0"
+<site site="http://(www\.)?plexapp\.tv/embed/nbc\.php"
+	plugin="(W|w)idget\.swf"
+	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:13.0) Gecko/20100101 Firefox/13.0.1"
 	initialState="loading"
-	version="7.0">
+	version="8.0">
 
-	<crop x="0" y="0" width="0" height="-26" />
+	<crop x="4" y="0" width="768" height="432" />
 
 <!-- New player, new seekbar that doesn't work, argh
 	<seekbar type="simple">
@@ -45,6 +45,19 @@
 				<javascript script="flash = navigator.plugins['Shockwave Flash'] ? 1 : 0" matches="1" />
 			</condition>
 			<action>
+				<goto state="click-to-play" />
+			</action>
+		</event>
+	</state>
+
+	<!-- Click to play -->
+	<state name="click-to-play">
+		<event>
+			<condition>
+				<color x="389" y="219" rgb="666666" />
+			</condition>
+			<action>
+				<click x="389" y="219" />
 				<goto state="playing" />
 			</action>
 		</event>
@@ -57,7 +70,7 @@
 				<command name="pause" />
 			</condition>
 			<action>
-				<click x="18" y="-12" />
+				<click x="100" y="100" />
 				<goto state="paused" />
 			</action>
 		</event>
@@ -65,7 +78,7 @@
 		<!-- Video ends -->
 		<event>
 			<condition>
-				<url matches="mezzanine.*\.jpg" />
+				<url matches="getImage" />
 			</condition>
 			<action>
 				<goto state="end" />
@@ -80,7 +93,7 @@
 				<command name="play" />
 			</condition>
 			<action>
-                <click x="18" y="-12" />
+                <click x="100" y="100" />
 				<goto state="playing" />
 			</action>
 		</event>
