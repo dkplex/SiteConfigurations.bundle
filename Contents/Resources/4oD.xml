@@ -10,14 +10,16 @@
 	<crop x="0" y="0" width="0" height="-37" />
 
 	<seekbar type="simple">
-		<start x="1" y="-35" />
-		<end x="-1" y="-35" />
+		<start x="1" y="-34" />
+		<end x="-1" y="-34" />
 		<played>
 			<!-- Progress is determined by the blue pixels in the gray / dark gray that is the progressbar -->
 			<color rgb="3fc0fd" />
 			<color rgb="48a9d6" />
 			<color rgb="ffffff" />
 			<color rgb="d8d8d8" />
+			<!-- Yellow pixels used to indicate that seek cursor has the focus. Needed to allow stepping to work -->
+			<color rgb="ffff00" />
 		</played>
 	</seekbar>
 
@@ -69,6 +71,28 @@
 				<run script="jQuery('html').html(jQuery('#catchUpPlayer').parent().html().replace('value=&quot;direct&quot;','value=&quot;opaque&quot;'));" />
 				<lockPlugin />
 				<pause time="5000" />
+				<goto state="preplay" />
+			</action>
+		</event>
+	</state>
+
+	<!-- Preplay
+	     Wait for ads to finish playing (if any) and give focus to the seek bar to allow
+	     Plex's clicks on seek to register with the player. Ads are deemed to be finished
+	     playing when the start of the seek bar turns white. It will turn white whether the
+	     video is playing from the start or resuming further down.
+	 -->
+	<state name="preplay">
+		<event>
+			<condition>
+				<color x="1" y="-34" rgb="ffffff" />
+			</condition>
+			<action>
+				<pause time="1000" />
+				<!-- Give focus to the seek bar / seek button -->
+				<!-- Note that the y position is important has it leaves focus on the seek bar    -->
+				<!-- which then allows stepping to work alongside the simple toolbar declaration. -->
+				<click x="180" y="-30" />
 				<goto state="playing" />
 			</action>
 		</event>
@@ -83,7 +107,7 @@
 			<action>
 				<click x="15" y="-17" />
 				<!-- Dummy click to move mouse away from play button to avoid having tooltip show --> 
-				<click x="-1" y="-1" />
+				<click x="180" y="-30" />
 				<goto state="paused" />
 			</action>
 		</event>
@@ -108,7 +132,7 @@
 			<action>
 				<click x="15" y="-17" />
 				<!-- Dummy click to move mouse away from play button to avoid having tooltip show --> 
-				<click x="-1" y="-1" />
+				<click x="180" y="-30" />
 				<goto state="playing" />
 			</action>
 		</event>
