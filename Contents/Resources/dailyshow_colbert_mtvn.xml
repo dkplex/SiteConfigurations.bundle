@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site site="http://media.mtvnservices.com/player/"
+<site site="http://media.mtvnservices.com/"
 	plugin="http://media.mtvnservices.com/.+player.+\.swf"
 	initialState="loading"
 	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_7) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.100 Safari/534.30"
@@ -16,7 +16,7 @@
 			</condition>
 
 			<action>
-				<pause time="5000" />
+				<pause time="7500" />
 				<click x="5" y="5" />  
 				<goto state="playing" />
 			</action>
