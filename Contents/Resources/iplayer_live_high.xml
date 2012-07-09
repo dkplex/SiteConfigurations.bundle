@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://(.+\.)?bbc\.co\.uk/iplayer/(tv|radio).*(#High)?"
 	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22"
-	plugin=".*emp.swf"
+	plugin=".*imp.swf.*" 
+	manualLock="true"
 	initialState="loading"
 	version="8.0">
 
@@ -16,7 +17,17 @@
 				<frameLoaded />
 			</condition>
 			<action>
-				<click x="1" y="1"/>
+				<run script="var el = document.getElementById('imp-embed');"/>
+				<run script="el.querySelector('[name=wmode]').setAttribute('value','opaque');" />
+
+				<!-- 'hack' for webkit based browsers to redraw the player element (so it will load with our customizations) -->
+				<run script="el.style.display = 'none';el.style.display = 'block';" />
+					
+				<lockPlugin />
+				
+				<!-- don't rush or we'll run into problems with undefined vars -->
+				<pause time="3000" />
+				
 				<goto state="playing" />
 			</action>
 		</event>
