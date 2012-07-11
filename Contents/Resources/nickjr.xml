@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site site="http://media.mtvnservices.com"
+<site site="(http://media.mtvnservices.com.+#nickjr|http://nickjr.com/.+)"
 	plugin="http://media.mtvnservices.com/player/.*"
 	initialState="playing"
 	version="2.0">
