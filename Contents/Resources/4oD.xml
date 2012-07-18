@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://(.+\.)?channel4.com/.+"
-	plugin="4odplayer.+swf"
+	plugin="4odplayer.+swf#plexapp"
 	identifier="com.plexapp.plugins.4oD"
-	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:9.0.1) Gecko/20100101 Firefox/9.0.1"
-	manualLock="true"
+	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:13.0) Gecko/20100101 Firefox/13.0.1"
 	initialState="loading"
-	version="5.0">
+	version="6.0">
 
 	<crop x="0" y="0" width="0" height="-37" />
 
@@ -68,8 +67,7 @@
 			</condition>
 			<action>
 				<pause time="5000" />
-				<run script="jQuery('html').html(jQuery('#catchUpPlayer').parent().html().replace('value=&quot;direct&quot;','value=&quot;opaque&quot;'));" />
-				<lockPlugin />
+				<run script="jQuery('html').html(jQuery('#catchUpPlayer').parent().html().replace(/value=&quot;(direct|gpu|transparent|window)&quot;/,'value=&quot;opaque&quot;').replace('.swf','.swf#plexapp'));" />
 				<pause time="5000" />
 				<goto state="preplay" />
 			</action>
