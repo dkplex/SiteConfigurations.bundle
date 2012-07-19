@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://(.+\.)?channel4.com/.+"
-	plugin="4odplayer.+swf#plexapp"
+	plugin="4odplayer.+swf\?"
 	identifier="com.plexapp.plugins.4oD"
 	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:13.0) Gecko/20100101 Firefox/13.0.1"
 	initialState="loading"
-	version="6.0">
+	version="7.0">
+
+	<setCookie domain=".channel4.com" path="/" name="c4_cookie_notified" value="notified" secure="false" />
+	<setCookie domain=".channel4.com" path="/" name="c4_cookie_policy" value="A" secure="false" />
 
 	<crop x="0" y="0" width="0" height="-37" />
 
@@ -12,85 +15,34 @@
 		<start x="1" y="-34" />
 		<end x="-1" y="-34" />
 		<played>
-			<!-- Progress is determined by the blue pixels in the gray / dark gray that is the progressbar -->
 			<color rgb="3fc0fd" />
-			<color rgb="48a9d6" />
-			<color rgb="ffffff" />
-			<color rgb="d8d8d8" />
-			<!-- Yellow pixels used to indicate that seek cursor has the focus. Needed to allow stepping to work -->
-			<color rgb="ffff00" />
 		</played>
 	</seekbar>
 
-	<!-- Loading and set cookie -->
 	<state name="loading">
 		<event>
 			<condition>
 				<frameLoaded />
 			</condition>
 			<action>
-				<run script="var brandWebSafeTitle=jQuery('meta[name=&quot;brandWebSafeTitle&quot;]').attr('content');if(brandWebSafeTitle!=undefined){jQuery.cookie('C4AccessControlCookie_'+brandWebSafeTitle,'{&quot;allowedToWatch&quot;:18}');}" />
-				<goto state="login" />
-			</action>
-		</event>
-	</state>
-
-	<!-- Login if we have a username and password -->
-	<state name="login">
-		<event>
-			<condition>
-				<javascript script="true ? 1 : 0" matches="1" />
-			</condition>
-			<action>
+				<run script="var brandWebSafeTitle=jQuery('meta[name=&quot;brandWebSafeTitle&quot;]').attr('content');document.cookie='C4AccessControlCookie_'+brandWebSafeTitle+'={&quot;allowedToWatch&quot;:18}';" />
 				<run script="var result=document.cookie.match(/C4_Identity=/); var u='${email}'; var p='${password}'; if(result==undefined &amp;&amp; u &amp;&amp; p){var url='http://www.channel4.com/4me/login?formview=modal&amp;redirectUrl=http://www.channel4.com/static/global/html/accesscontrol/login/loginSuccess.htm';var data={name:u,password:p};jQuery.post(url,data,function(data){ });}" />
-				<goto state="check-flash" />
+				<pause time="2000" />
+				<run script="jQuery('body').html('&lt;object data=&quot;http://www.channel4.com/static/programmes/asset/flash/swf/'+fourodPlayerFile+'?preSelectAsset='+window.location.pathname.split('/').pop()+'&quot; type=&quot;application/x-shockwave-flash&quot; height=&quot;397&quot; width=&quot;640&quot;&gt;&lt;/object&gt;');" />
+				<goto state="click-to-play" />
 			</action>
 		</event>
 	</state>
 
-	<!-- Check Flash
-	In this state we check if the Flash plugin is present and change the wmode of the player.
-	The 5 second wait is just to prevent end detection from matching right away.
-	-->
-	<state name="check-flash">
+	<!-- Click to play -->
+	<state name="click-to-play">
 		<event>
 			<condition>
-				<javascript script="flash = navigator.plugins['Shockwave Flash'] ? 1 : 0" matches="0" />
-			</condition>
-			<action>
-				<goto state="end" param="This plugin requires the Flash player to be installed." />
-			</action>
-		</event>
-		<event>
-			<condition>
-				<javascript script="flash = navigator.plugins['Shockwave Flash'] ? 1 : 0" matches="1" />
-			</condition>
-			<action>
-				<pause time="5000" />
-				<run script="jQuery('html').html(jQuery('#catchUpPlayer').parent().html().replace(/value=&quot;(direct|gpu|transparent|window)&quot;/,'value=&quot;opaque&quot;').replace('.swf','.swf#plexapp'));" />
-				<pause time="5000" />
-				<goto state="preplay" />
-			</action>
-		</event>
-	</state>
-
-	<!-- Preplay
-	     Wait for ads to finish playing (if any) and give focus to the seek bar to allow
-	     Plex's clicks on seek to register with the player. Ads are deemed to be finished
-	     playing when the start of the seek bar turns white. It will turn white whether the
-	     video is playing from the start or resuming further down.
-	 -->
-	<state name="preplay">
-		<event>
-			<condition>
-				<color x="1" y="-34" rgb="ffffff" />
+				<color x="320" y="180" rgb="ffffff" />
 			</condition>
 			<action>
 				<pause time="1000" />
-				<!-- Give focus to the seek bar / seek button -->
-				<!-- Note that the y position is important has it leaves focus on the seek bar    -->
-				<!-- which then allows stepping to work alongside the simple toolbar declaration. -->
-				<click x="180" y="-30" />
+				<click x="320" y="180" />
 				<goto state="playing" />
 			</action>
 		</event>
@@ -104,19 +56,7 @@
 			</condition>
 			<action>
 				<click x="15" y="-17" />
-				<!-- Dummy click to move mouse away from play button to avoid having tooltip show --> 
-				<click x="180" y="-30" />
 				<goto state="paused" />
-			</action>
-		</event>
-
-		<!-- Video ends -->
-		<event>
-			<condition>
-				<url matches="assets.*\.jpg" />
-			</condition>
-			<action>
-				<goto state="end" />
 			</action>
 		</event>
 	</state>
@@ -129,8 +69,6 @@
 			</condition>
 			<action>
 				<click x="15" y="-17" />
-				<!-- Dummy click to move mouse away from play button to avoid having tooltip show --> 
-				<click x="180" y="-30" />
 				<goto state="playing" />
 			</action>
 		</event>
