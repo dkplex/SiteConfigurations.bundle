@@ -28,7 +28,7 @@
 				<run script="var brandWebSafeTitle=jQuery('meta[name=&quot;brandWebSafeTitle&quot;]').attr('content');document.cookie='C4AccessControlCookie_'+brandWebSafeTitle+'={&quot;allowedToWatch&quot;:18}';" />
 				<run script="var result=document.cookie.match(/C4_Identity=/); var u='${email}'; var p='${password}'; if(result==undefined &amp;&amp; u &amp;&amp; p){var url='http://www.channel4.com/4me/login?formview=modal&amp;redirectUrl=http://www.channel4.com/static/global/html/accesscontrol/login/loginSuccess.htm';var data={name:u,password:p};jQuery.post(url,data,function(data){ });}" />
 				<pause time="2000" />
-				<run script="jQuery('body').html('&lt;object data=&quot;http://www.channel4.com/static/programmes/asset/flash/swf/'+fourodPlayerFile+'?preSelectAsset='+window.location.pathname.split('/').pop()+'&quot; type=&quot;application/x-shockwave-flash&quot; height=&quot;397&quot; width=&quot;640&quot;&gt;&lt;/object&gt;');" />
+				<run script="jQuery('body').html('&lt;object data=&quot;http://www.channel4.com/static/programmes/asset/flash/swf/'+fourodPlayerFile+'?preSelectAsset='+window.location.pathname.split('/').pop()+'&quot; type=&quot;application/x-shockwave-flash&quot; height=&quot;397&quot; width=&quot;640&quot;&gt;&lt;param value=&quot;#000000&quot; name=&quot;bgcolor&quot;&gt;&lt;/object&gt;');" />
 				<goto state="click-to-play" />
 			</action>
 		</event>
