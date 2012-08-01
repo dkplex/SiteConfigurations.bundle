@@ -1,27 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://media.mtvnservices.com/[^#]+"
 	plugin="http://media.mtvnservices.com/.+player.+\.swf"
-	initialState="loading"
+	initialState="playing"
 	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_7) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.100 Safari/534.30"
 	windowWidth="768"
 	windowHeight="432"
 	version="3.0">
 
 	<crop x="0" y="0" width="0" height="0" />
-
-	<state name="loading">
-		<event>
-			<condition>
-				<frameLoaded />
-			</condition>
-
-			<action>
-				<pause time="7500" />
-				<click x="5" y="5" />  
-				<goto state="playing" />
-			</action>
-		</event>
-	</state>
 
 	<!-- PLAYING -->
 	<state name="playing">
