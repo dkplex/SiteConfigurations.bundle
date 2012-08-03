@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site	site="http://www.justin.tv/.*"
-		plugin="http://www-cdn.+?/widgets/live_(site|frontpage)_player.+?\.swf"
+		plugin="live_(site|frontpage)_player\.swf"
 		initialState="loading"
-		version="2.0">
+		version="3.0">
 
 	<setCookie domain=".justin.tv" path="/" name="mature_allowed" secure="false" value="true" />
 
