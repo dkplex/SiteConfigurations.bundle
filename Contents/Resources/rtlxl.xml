@@ -1,30 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site site="http://(.+\.)?rtl\.nl"
+<site site="http://www\.rtl\.nl/xl/"
+	agent="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.83 Safari/537.1"
 	plugin="silverlight"
-	initialState="wait-for-frame-load"
-	version="2.0">
+	initialState="playing"
+	version="4.0">
 
 	<crop x="0" y="0" width="0" height="0" />
-
-	<seekbar type="thumb">
-		<start x="110" y="-39" />
-		<end x="-254" y="-39" />
-		<played>
-			<color rgb="fe9800" />
-		</played>
-	</seekbar>
-
-	<!-- Wait-for-frame-load -->
-	<state name="wait-for-frame-load">
-		<event>
-			<condition>
-				<frameLoaded />
-			</condition>
-			<action>
-				<goto state="playing" />
-			</action>
-		</event>
-	</state>
 
 	<!-- Playing -->
 	<state name="playing">
