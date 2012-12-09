@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site site="http://www.fox.com/.*"
-	plugin="http://www.fox.com/_ui/fox_player/swf/flvPlayer\.swf"
-	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1"
+	plugin="flvPlayer\.swf"
+	agent="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.83 Safari/537.1"
 	initialState="playing"
-	version="4.0">
+	version="5.0">
 
 	<crop x="0" y="-4" width="0" height="0"/>
 
